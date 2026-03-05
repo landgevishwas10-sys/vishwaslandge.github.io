@@ -4,70 +4,1561 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vishwas Landge | Social Media Strategist</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Poppins', sans-serif; }
-    .gradient-text {
-      background: linear-gradient(90deg, #a855f7, #06b6d4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #050507;
+      --white: #f0ede8;
+      --accent: #ff4d00;
+      --accent2: #00e5ff;
+      --gray: #1a1a22;
+      --gray2: #2a2a35;
+      --muted: #6b6b80;
     }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+
+    /* ─── TOOL BADGES ─── */
+    .tool-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 100px;
+      border: 1px solid;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .tool-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(5,5,7,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(240,237,232,0.06);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    nav ul {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--white); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Hero background layers */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    /* Deep gradient base — midnight purple/navy to black, fits SM strategist vibe */
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 90% 70% at 50% 0%, rgba(88,28,220,0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 50% at 10% 80%, rgba(255,77,0,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 90% 70%, rgba(0,229,255,0.10) 0%, transparent 60%),
+        linear-gradient(160deg, #0a0612 0%, #050507 40%, #070510 100%);
+    }
+
+    /* Subtle dot grid */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    /* Glowing aurora ring behind photo */
+    .hero-aurora {
+      position: absolute;
+      width: 520px; height: 520px;
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -58%);
+      background: conic-gradient(
+        from 0deg,
+        rgba(255,77,0,0.0),
+        rgba(139,92,246,0.22),
+        rgba(0,229,255,0.18),
+        rgba(255,77,0,0.15),
+        rgba(139,92,246,0.0)
+      );
+      filter: blur(48px);
+      animation: auroraSpin 10s linear infinite;
+    }
+
+    @keyframes auroraSpin {
+      from { transform: translate(-50%, -58%) rotate(0deg); }
+      to   { transform: translate(-50%, -58%) rotate(360deg); }
+    }
+
+    /* Floating social icons scattered in background */
+    .hero-float-icon {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.1;
+      animation: floatDrift 8s ease-in-out infinite;
+      pointer-events: none;
+      filter: blur(0.5px);
+    }
+
+    @keyframes floatDrift {
+      0%,100% { transform: translateY(0) rotate(0deg); opacity: 0.08; }
+      50%      { transform: translateY(-20px) rotate(8deg); opacity: 0.18; }
+    }
+
+    /* Thin ring accent lines */
+    .hero-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.04);
+      pointer-events: none;
+      animation: ringPulse 6s ease-in-out infinite;
+    }
+
+    @keyframes ringPulse {
+      0%, 100% { opacity: 0.4; transform: translate(-50%,-50%) scale(1); }
+      50%       { opacity: 0.12; transform: translate(-50%,-50%) scale(1.04); }
+    }
+
+    /* Light streak */
+    .hero-streak {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(139,92,246,0.4), transparent);
+      pointer-events: none;
+      animation: streakSlide 7s ease-in-out infinite;
+    }
+
+    @keyframes streakSlide {
+      0%   { opacity: 0; transform: translateX(-100px); }
+      30%  { opacity: 1; }
+      70%  { opacity: 1; }
+      100% { opacity: 0; transform: translateX(100px); }
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(255,77,0,0.3);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+      width: fit-content;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      max-width: 900px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(240,237,232,0.4);
+    }
+
+    .hero-sub {
+      margin-top: 2.5rem;
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      font-weight: 300;
+      text-align: center;
+    }
+
+    .hero-actions {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-primary {
+      padding: 0.9rem 2rem;
+      background: var(--accent);
+      color: var(--white);
+      border-radius: 6px;
+      text-decoration: none;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover { background: #ff6a2a; transform: translateY(-1px); }
+
+    .btn-ghost {
+      padding: 0.9rem 2rem;
+      border: 1px solid rgba(240,237,232,0.2);
+      color: var(--white);
+      border-radius: 6px;
+      text-decoration: none;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    .hero-stats {
+      margin-top: 5rem;
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(240,237,232,0.08);
+      padding-top: 2.5rem;
+      justify-content: center;
+    }
+
+    .stat-item {}
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2.2rem;
+      letter-spacing: -0.03em;
+      color: var(--white);
+    }
+
+    .stat-num span { color: var(--accent); }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    /* ─── SECTION HEADER ─── */
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    /* ─── WHAT I DO ─── */
+    .services {
+      padding: 7rem 3rem;
+      background: var(--gray);
+      position: relative;
+    }
+
+    .services-inner { max-width: 1200px; margin: 0 auto; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      margin-top: 4rem;
+      border: 1px solid rgba(240,237,232,0.07);
+    }
+
+    .service-card {
+      padding: 2.5rem;
+      background: var(--gray);
+      border-right: 1px solid rgba(240,237,232,0.07);
+      border-bottom: 1px solid rgba(240,237,232,0.07);
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover { background: var(--gray2); }
+    .service-card:hover::after { transform: scaleX(1); }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.01em;
+    }
+
+    .service-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ─── PORTFOLIO / CASE STUDIES ─── */
+    .portfolio {
+      padding: 7rem 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .portfolio-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    /* FILTER TABS */
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .filter-tab {
+      padding: 0.4rem 1.1rem;
+      border-radius: 100px;
+      border: 1px solid rgba(240,237,232,0.15);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .filter-tab:hover, .filter-tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    /* CARDS GRID */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .brand-card {
+      background: var(--gray);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(240,237,232,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .brand-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      border-color: rgba(240,237,232,0.15);
+    }
+
+    .brand-card-top {
+      padding: 1.8rem;
+      border-bottom: 1px solid rgba(240,237,232,0.07);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-icon {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .brand-info h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-handle {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    .category-pill {
+      margin-left: auto;
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .brand-card-body { padding: 1.8rem; }
+
+    .brand-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .work-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .work-tag {
+      padding: 0.25rem 0.7rem;
+      background: rgba(240,237,232,0.06);
+      border-radius: 4px;
+      font-size: 0.72rem;
+      color: rgba(240,237,232,0.7);
+      letter-spacing: 0.03em;
+    }
+
+    .brand-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .metric {
+      background: rgba(240,237,232,0.04);
+      border-radius: 8px;
+      padding: 0.8rem;
+      text-align: center;
+    }
+
+    .metric-val {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .metric-key {
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 0.2rem;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent2);
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+
+    .brand-link:hover { gap: 0.8rem; }
+
+    /* ─── TESTIMONIALS / PROCESS ─── */
+    .process {
+      padding: 7rem 3rem;
+      background: var(--gray);
+    }
+
+    .process-inner { max-width: 1000px; margin: 0 auto; }
+
+    .process-steps {
+      margin-top: 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .process-step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(240,237,232,0.07);
+      align-items: start;
+    }
+
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 3rem;
+      color: rgba(240,237,232,0.08);
+      line-height: 1;
+    }
+
+    .step-content h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .step-content p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ─── CONTACT ─── */
+    .contact {
+      padding: 7rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-orb {
+      position: absolute;
+      width: 800px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(255,77,0,0.08), transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .contact-inner { position: relative; max-width: 700px; margin: 0 auto; }
+
+    .contact h2 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact h2 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .contact p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    .contact-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-wa {
+      padding: 0.9rem 2rem;
+      background: #25d366;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .btn-wa:hover { background: #1db954; transform: translateY(-1px); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 2rem 3rem;
+      background: var(--gray);
+      border-top: 1px solid rgba(240,237,232,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer p { font-size: 0.8rem; color: var(--muted); }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    /* ─── FLOATING WA ─── */
+    .wa-float {
+      position: fixed;
+      bottom: 1.8rem; right: 1.8rem;
+      width: 52px; height: 52px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      z-index: 200;
+    }
+
+    .wa-float:hover { transform: scale(1.1); box-shadow: 0 12px 32px rgba(37,211,102,0.6); }
+
+    /* ─── HIDDEN CARDS for filter ─── */
+    .brand-card.hidden { display: none; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      nav ul { gap: 1.2rem; }
+      .hero { padding: 7rem 1.5rem 3rem; }
+      .hero-stats { gap: 2rem; }
+      .services, .portfolio, .process, .contact { padding: 5rem 1.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+      .process-step { grid-template-columns: 1fr; gap: 0.5rem; }
+    }
+
+    /* FADE IN ANIMATION */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up { animation: fadeUp 0.7s ease forwards; }
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .delay-3 { animation-delay: 0.35s; opacity: 0; }
+    .delay-4 { animation-delay: 0.5s; opacity: 0; }
   </style>
 </head>
-<body class="bg-black text-white scroll-smooth">
+<body>
 
-  <!-- HERO SECTION -->
-  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
-    <img src="profile.jpg" alt="Vishwas Landge" class="w-40 h-40 rounded-full object-cover border-4 border-purple-600 shadow-lg mb-6">
-    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
-      I Don’t Just Manage Social Media.<br>
-      <span class="gradient-text">I Engineer Attention.</span>
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">VL<span>.</span></a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <!-- Rich background -->
+    <div class="hero-bg"></div>
+    <div class="hero-aurora"></div>
+
+    <!-- Decorative rings -->
+    <div class="hero-ring" style="width:700px;height:700px;top:40%;left:50%;transform:translate(-50%,-50%);"></div>
+    <div class="hero-ring" style="width:500px;height:500px;top:40%;left:50%;transform:translate(-50%,-50%);animation-delay:2s;"></div>
+    <div class="hero-ring" style="width:320px;height:320px;top:40%;left:50%;transform:translate(-50%,-50%);animation-delay:4s;"></div>
+
+    <!-- Light streak -->
+    <div class="hero-streak" style="width:60%;top:35%;left:20%;"></div>
+
+    <!-- Floating social-themed icons -->
+    <div class="hero-float-icon" style="top:15%;left:8%;animation-delay:0s;">📱</div>
+    <div class="hero-float-icon" style="top:25%;right:10%;animation-delay:1.5s;font-size:1.2rem;">📊</div>
+    <div class="hero-float-icon" style="bottom:30%;left:5%;animation-delay:3s;font-size:1.1rem;">🎯</div>
+    <div class="hero-float-icon" style="top:60%;right:7%;animation-delay:2s;">✨</div>
+    <div class="hero-float-icon" style="bottom:20%;right:15%;animation-delay:4s;font-size:1rem;">💬</div>
+    <div class="hero-float-icon" style="top:12%;right:25%;animation-delay:0.8s;font-size:1rem;">🚀</div>
+    <div class="hero-float-icon" style="bottom:35%;left:12%;animation-delay:5s;font-size:0.9rem;">📈</div>
+
+    <div class="hero-tag fade-up" style="margin-left:auto;margin-right:auto;">Available for new projects</div>
+
+    <div class="fade-up delay-1" style="display:flex;flex-direction:column;align-items:center;gap:1rem;margin-bottom:2.5rem;width:100%;">
+      <img src="profile.jpg" alt="Vishwas Landge" style="width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,77,0,0.6);box-shadow:0 0 48px rgba(255,77,0,0.25),0 0 0 6px rgba(255,77,0,0.08);">
+      <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:0.04em;color:var(--white);">Vishwas Landge</span>
+    </div>
+
+    <h1 class="fade-up delay-1">
+      I Don't Just Post.<br>
+      I <em>Engineer</em><br>
+      Attention.
     </h1>
-    <p class="mt-6 text-gray-400 max-w-2xl">
-      Vishwas Landge – Social Media Strategist & Online Business Manager helping brands turn scroll into sales.
+
+    <p class="hero-sub fade-up delay-2">
+      Social Media Strategist & Online Business Manager helping brands cut through the noise and turn scroll into sales — across 12+ brands and 7+ industries.
     </p>
-    <div class="mt-8 flex gap-4 flex-wrap justify-center">
-      <a href="#work" class="px-6 py-3 bg-purple-600 rounded-full font-semibold hover:bg-purple-700 transition">See My Work</a>
-      <a href="#contact" class="px-6 py-3 border border-cyan-400 rounded-full font-semibold hover:bg-cyan-400 hover:text-black transition">Let’s Connect</a>
+
+    <div class="hero-actions fade-up delay-3">
+      <a href="#work" class="btn-primary">See My Work →</a>
+      <a href="#contact" class="btn-ghost">Let's Connect</a>
+    </div>
+
+    <div class="hero-stats fade-up delay-4">
+      <div class="stat-item">
+        <div class="stat-num">13<span>+</span></div>
+        <div class="stat-label">Brands Managed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">7<span>+</span></div>
+        <div class="stat-label">Industries</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100<span>%</span></div>
+        <div class="stat-label">Custom Strategy</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3<span>x</span></div>
+        <div class="stat-label">Avg. Reach Growth</div>
+      </div>
     </div>
   </section>
 
-  <!-- INSTAGRAM PORTFOLIO SECTION -->
-  <section id="work" class="py-20 px-6 bg-gray-900 text-center">
-    <h2 class="text-3xl font-bold mb-12 gradient-text">Brands I’ve Managed</h2>
-    <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto text-left">
-      <a href="https://www.instagram.com/thecircuitindia/" target="_blank" class="bg-black p-6 rounded-xl hover:scale-105 transition">@thecircuitindia</a>
-      <a href="https://www.instagram.com/thedoughtherapy/" target="_blank" class="bg-black p-6 rounded-xl hover:scale-105 transition">@thedoughtherapy</a>
-      <a href="https://www.instagram.com/tab_takeabreakcafe/" target="_blank" class="bg-black p-6 rounded-xl hover:scale-105 transition">@tab_takeabreakcafe</a>
-      <a href="https://www.instagram.com/jewelholidays/" target="_blank" class="bg-black p-6 rounded-xl hover:scale-105 transition">@jewelholidays</a>
-      <a href="https://www.instagram.com/radiant.salon/" target="_blank" class="bg-black p-6 rounded-xl hover:scale-105 transition">@radiant.salon</a>
-      <a href="https://www.instagram.com/merlin.realestate/" target="_blank" class="bg-black p-6 rounded-xl hover:scale-105 transition">@merlin.realestate</a>
-      <a href="https://www.instagram.com/labelinaya/" target="_blank" class="bg-black p-6 rounded-xl hover:scale-105 transition">@labelinaya</a>
-      <a href="https://www.instagram.com/labelnitibothra/" target="_blank" class="bg-black p-6 rounded-xl hover:scale-105 transition">@labelnitibothra</a>
-      <a href="https://www.instagram.com/siroyaventures/" target="_blank" class="bg-black p-6 rounded-xl hover:scale-105 transition">@siroyaventures</a>
-      <a href="https://www.instagram.com/thecoppersmiths.in/" target="_blank" class="bg-black p-6 rounded-xl hover:scale-105 transition">@thecoppersmiths.in</a>
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-inner">
+      <p class="section-label">What I Do</p>
+      <h2 class="section-title">Full-Stack Social<br>Media Management</h2>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🎯</div>
+          <h3>Strategy & Positioning</h3>
+          <p>Deep brand audits, competitor mapping, and a content strategy that actually aligns with your business goals — not just vanity metrics.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">✍️</div>
+          <h3>Content Creation & Copy</h3>
+          <p>Scroll-stopping captions, hooks, and creative briefs. I write content that sounds like your brand — but performs like a campaign.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📅</div>
+          <h3>Content Calendar & Scheduling</h3>
+          <p>Consistent publishing across platforms — Reels, carousels, stories — planned weeks in advance so you never go dark.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📊</div>
+          <h3>Analytics & Reporting</h3>
+          <p>Monthly performance breakdowns with clear takeaways. No jargon — just what's working, what's not, and what we do next.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">💬</div>
+          <h3>Community Management</h3>
+          <p>Fast, brand-consistent replies, DM handling, and engagement loops that turn followers into loyal fans and customers.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎨</div>
+          <h3>Canva Design — Posts & Stories</h3>
+          <p>Professional, on-brand visual design for every post, carousel, and story — built in Canva. Consistent templates, brand kits, and match-day or campaign graphics that look agency-level without the agency price.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🛒</div>
+          <h3>Shopify & WooCommerce</h3>
+          <p>I go beyond social — managing product inventory, uploading listings, and keeping your Shopify or WooCommerce store running smoothly so your online sales backend stays as sharp as your Instagram feed.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- CONTACT SECTION -->
-  <section id="contact" class="py-20 px-6 text-center">
-    <h2 class="text-3xl font-bold mb-8 gradient-text">Let’s Build Something Powerful</h2>
-    <p class="text-gray-400 mb-6">Ready to scale your brand? Let’s connect.</p>
-    <div class="flex flex-col md:flex-row gap-4 justify-center">
-      <a href="mailto:landgevishwas10@gmail.com" class="px-8 py-3 bg-purple-600 rounded-full font-semibold hover:bg-purple-700 transition">Email Me</a>
-      <a href="https://wa.me/917977054003" target="_blank" class="px-8 py-3 bg-green-600 rounded-full font-semibold hover:bg-green-700 transition">WhatsApp Me</a>
+  <!-- PORTFOLIO / CASE STUDIES -->
+  <section class="portfolio" id="work">
+    <div class="portfolio-header">
+      <div>
+        <p class="section-label">Case Studies</p>
+        <h2 class="section-title">Brands I've Built<br>On Social</h2>
+      </div>
+    </div>
+
+    <!-- FILTER TABS -->
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterCards('all', this)">All</button>
+      <button class="filter-tab" onclick="filterCards('food', this)">Food & Café</button>
+      <button class="filter-tab" onclick="filterCards('fashion', this)">Fashion</button>
+      <button class="filter-tab" onclick="filterCards('travel', this)">Travel</button>
+      <button class="filter-tab" onclick="filterCards('realestate', this)">Real Estate</button>
+      <button class="filter-tab" onclick="filterCards('wellness', this)">Wellness</button>
+      <button class="filter-tab" onclick="filterCards('tech', this)">Tech</button>
+      <button class="filter-tab" onclick="filterCards('politics', this)">Politics</button>
+      <button class="filter-tab" onclick="filterCards('celebrity', this)">Celebrity</button>
+      <button class="filter-tab" onclick="filterCards('sports', this)">Sports</button>
+    </div>
+
+    <div class="cards-grid" style="margin-top:2.5rem;" id="cardsGrid">
+
+      <!-- 1. THE CIRCUIT INDIA -->
+      <div class="brand-card" data-category="tech">
+        <div class="brand-card-top">
+          <div class="brand-icon" style="background:rgba(0,229,255,0.1);">⚡</div>
+          <div class="brand-info">
+            <h3>The Circuit India</h3>
+            <div class="brand-handle">@thecircuitindia</div>
+          </div>
+          <span class="category-pill" style="background:rgba(0,229,255,0.1);color:#00e5ff;">Tech</span>
+        </div>
+        <div class="brand-card-body">
+          <p class="brand-desc">
+            Electronics & tech community platform targeting hobbyists and makers. Built authority through educational content and product-first storytelling, growing a highly engaged niche audience.
+          </p>
+          <div class="work-tags">
+            <span class="work-tag">Content Strategy</span>
+            <span class="work-tag">Reels</span>
+            <span class="work-tag">Community Building</span>
+            <span class="work-tag">Educational Posts</span>
+          </div>
+          <div class="brand-metrics">
+            <div class="metric">
+              <div class="metric-val" style="color:#00e5ff;">3x</div>
+              <div class="metric-key">Reach Growth</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#00e5ff;">↑42%</div>
+              <div class="metric-key">Engagement</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#00e5ff;">Niche</div>
+              <div class="metric-key">Authority Built</div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/thecircuitindia/" target="_blank" class="brand-link">View on Instagram →</a>
+        </div>
+      </div>
+
+      <!-- 2. THE DOUGH THERAPY -->
+      <div class="brand-card" data-category="food">
+        <div class="brand-card-top">
+          <div class="brand-icon" style="background:rgba(255,180,50,0.1);">🥐</div>
+          <div class="brand-info">
+            <h3>The Dough Therapy</h3>
+            <div class="brand-handle">@thedoughtherapy</div>
+          </div>
+          <span class="category-pill" style="background:rgba(255,180,50,0.1);color:#ffb432;">Food</span>
+        </div>
+        <div class="brand-card-body">
+          <p class="brand-desc">
+            Artisan bakery brand where every post had to feel warm, indulgent, and crave-worthy. Focused on food photography direction, behind-the-scenes storytelling, and seasonal campaign drops.
+          </p>
+          <div class="work-tags">
+            <span class="work-tag">Food Photography Direction</span>
+            <span class="work-tag">Reels</span>
+            <span class="work-tag">Seasonal Campaigns</span>
+            <span class="work-tag">Stories</span>
+          </div>
+          <div class="brand-metrics">
+            <div class="metric">
+              <div class="metric-val" style="color:#ffb432;">+60%</div>
+              <div class="metric-key">Profile Visits</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#ffb432;">2x</div>
+              <div class="metric-key">Story Views</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#ffb432;">DMs</div>
+              <div class="metric-key">→ Orders</div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/thedoughtherapy/" target="_blank" class="brand-link">View on Instagram →</a>
+        </div>
+      </div>
+
+      <!-- 3. TAB CAFE -->
+      <div class="brand-card" data-category="food">
+        <div class="brand-card-top">
+          <div class="brand-icon" style="background:rgba(160,120,80,0.15);">☕</div>
+          <div class="brand-info">
+            <h3>Take A Break Café</h3>
+            <div class="brand-handle">@tab_takeabreakcafe</div>
+          </div>
+          <span class="category-pill" style="background:rgba(160,120,80,0.12);color:#c8956a;">Café</span>
+        </div>
+        <div class="brand-card-body">
+          <p class="brand-desc">
+            Cozy café brand requiring a warm, welcoming online presence. Created content that invited followers into a "third place" experience — ambient vibes, menu reveals, and event promotions.
+          </p>
+          <div class="work-tags">
+            <span class="work-tag">Vibe Content</span>
+            <span class="work-tag">Menu Campaigns</span>
+            <span class="work-tag">Event Promotion</span>
+            <span class="work-tag">UGC Strategy</span>
+          </div>
+          <div class="brand-metrics">
+            <div class="metric">
+              <div class="metric-val" style="color:#c8956a;">+80%</div>
+              <div class="metric-key">Footfall Posts</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#c8956a;">↑55%</div>
+              <div class="metric-key">Saves</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#c8956a;">Local</div>
+              <div class="metric-key">Discovery</div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/tab_takeabreakcafe/" target="_blank" class="brand-link">View on Instagram →</a>
+        </div>
+      </div>
+
+      <!-- 4. JEWEL HOLIDAYS -->
+      <div class="brand-card" data-category="travel">
+        <div class="brand-card-top">
+          <div class="brand-icon" style="background:rgba(100,200,100,0.1);">✈️</div>
+          <div class="brand-info">
+            <h3>Jewel Holidays</h3>
+            <div class="brand-handle">@jewelholidays</div>
+          </div>
+          <span class="category-pill" style="background:rgba(100,200,100,0.1);color:#64c864;">Travel</span>
+        </div>
+        <div class="brand-card-body">
+          <p class="brand-desc">
+            Travel agency needing aspirational content to trigger wanderlust and drive inquiry generation. Built destination series, travel tips content, and strong CTA frameworks for DM conversions.
+          </p>
+          <div class="work-tags">
+            <span class="work-tag">Destination Series</span>
+            <span class="work-tag">Lead Generation</span>
+            <span class="work-tag">Carousels</span>
+            <span class="work-tag">CTA Optimization</span>
+          </div>
+          <div class="brand-metrics">
+            <div class="metric">
+              <div class="metric-val" style="color:#64c864;">+120%</div>
+              <div class="metric-key">Inquiry DMs</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#64c864;">4x</div>
+              <div class="metric-key">Reach</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#64c864;">Top</div>
+              <div class="metric-key">Destination Posts</div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/jewelholidays/" target="_blank" class="brand-link">View on Instagram →</a>
+        </div>
+      </div>
+
+      <!-- 5. RADIANT SALON -->
+      <div class="brand-card" data-category="wellness">
+        <div class="brand-card-top">
+          <div class="brand-icon" style="background:rgba(255,100,180,0.1);">💅</div>
+          <div class="brand-info">
+            <h3>Radiant Salon</h3>
+            <div class="brand-handle">@radiant.salon</div>
+          </div>
+          <span class="category-pill" style="background:rgba(255,100,180,0.1);color:#ff64b4;">Wellness</span>
+        </div>
+        <div class="brand-card-body">
+          <p class="brand-desc">
+            Premium salon brand where transformations sell. Designed a before/after content strategy, promoted seasonal offers, and built a referral-friendly community that drove walk-in bookings.
+          </p>
+          <div class="work-tags">
+            <span class="work-tag">Before & After Content</span>
+            <span class="work-tag">Offer Campaigns</span>
+            <span class="work-tag">Reels</span>
+            <span class="work-tag">Booking CTAs</span>
+          </div>
+          <div class="brand-metrics">
+            <div class="metric">
+              <div class="metric-val" style="color:#ff64b4;">+90%</div>
+              <div class="metric-key">Booking Inquiries</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#ff64b4;">2.5x</div>
+              <div class="metric-key">Followers</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#ff64b4;">Viral</div>
+              <div class="metric-key">Reel Results</div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/radiant.salon/" target="_blank" class="brand-link">View on Instagram →</a>
+        </div>
+      </div>
+
+      <!-- 6. MERLIN REAL ESTATE -->
+      <div class="brand-card" data-category="realestate">
+        <div class="brand-card-top">
+          <div class="brand-icon" style="background:rgba(180,140,255,0.1);">🏙️</div>
+          <div class="brand-info">
+            <h3>Merlin Real Estate</h3>
+            <div class="brand-handle">@merlin.realestate</div>
+          </div>
+          <span class="category-pill" style="background:rgba(180,140,255,0.1);color:#b48cff;">Real Estate</span>
+        </div>
+        <div class="brand-card-body">
+          <p class="brand-desc">
+            High-value real estate brand requiring trust-building, professional credibility, and lead generation. Created property showcase content, market insight carousels, and testimonial-driven posts.
+          </p>
+          <div class="work-tags">
+            <span class="work-tag">Property Showcases</span>
+            <span class="work-tag">Market Insights</span>
+            <span class="work-tag">Testimonials</span>
+            <span class="work-tag">Lead Funnels</span>
+          </div>
+          <div class="brand-metrics">
+            <div class="metric">
+              <div class="metric-val" style="color:#b48cff;">+75%</div>
+              <div class="metric-key">Lead Quality</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#b48cff;">3x</div>
+              <div class="metric-key">Profile Reach</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#b48cff;">Trust</div>
+              <div class="metric-key">Authority Built</div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/merlin.realestate/" target="_blank" class="brand-link">View on Instagram →</a>
+        </div>
+      </div>
+
+      <!-- 7. LABEL INAYA -->
+      <div class="brand-card" data-category="fashion">
+        <div class="brand-card-top">
+          <div class="brand-icon" style="background:rgba(255,200,100,0.1);">👗</div>
+          <div class="brand-info">
+            <h3>Label Inaya</h3>
+            <div class="brand-handle">@labelinaya</div>
+          </div>
+          <span class="category-pill" style="background:rgba(255,200,100,0.1);color:#ffc864;">Fashion</span>
+        </div>
+        <div class="brand-card-body">
+          <p class="brand-desc">
+            Contemporary fashion label targeting style-conscious women. Built a cohesive aesthetic grid, ran product drop campaigns, and crafted influencer-style editorial content on a lean budget.
+          </p>
+          <div class="work-tags">
+            <span class="work-tag">Aesthetic Grid</span>
+            <span class="work-tag">Product Drops</span>
+            <span class="work-tag">Editorial Content</span>
+            <span class="work-tag">Story Funnels</span>
+          </div>
+          <div class="brand-metrics">
+            <div class="metric">
+              <div class="metric-val" style="color:#ffc864;">+100%</div>
+              <div class="metric-key">Product Page Hits</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#ffc864;">↑65%</div>
+              <div class="metric-key">Story CTR</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#ffc864;">Sales</div>
+              <div class="metric-key">Direct from IG</div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/labelinaya/" target="_blank" class="brand-link">View on Instagram →</a>
+        </div>
+      </div>
+
+      <!-- 8. LABEL NITI BOTHRA -->
+      <div class="brand-card" data-category="fashion">
+        <div class="brand-card-top">
+          <div class="brand-icon" style="background:rgba(220,180,160,0.12);">✨</div>
+          <div class="brand-info">
+            <h3>Label Niti Bothra</h3>
+            <div class="brand-handle">@labelnitibothra</div>
+          </div>
+          <span class="category-pill" style="background:rgba(220,180,160,0.1);color:#dca896;">Luxury Fashion</span>
+        </div>
+        <div class="brand-card-body">
+          <p class="brand-desc">
+            Designer label requiring elevated, aspirational positioning. Managed couture-level content presentation, collaborated on influencer seeding strategy, and built a premium brand voice across all touchpoints.
+          </p>
+          <div class="work-tags">
+            <span class="work-tag">Luxury Positioning</span>
+            <span class="work-tag">Influencer Strategy</span>
+            <span class="work-tag">Brand Voice</span>
+            <span class="work-tag">Campaign Direction</span>
+          </div>
+          <div class="brand-metrics">
+            <div class="metric">
+              <div class="metric-val" style="color:#dca896;">Premium</div>
+              <div class="metric-key">Brand Image</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#dca896;">+85%</div>
+              <div class="metric-key">Saves</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#dca896;">↑3x</div>
+              <div class="metric-key">Reach</div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/labelnitibothra/" target="_blank" class="brand-link">View on Instagram →</a>
+        </div>
+      </div>
+
+      <!-- 9. SIROYA VENTURES -->
+      <div class="brand-card" data-category="realestate">
+        <div class="brand-card-top">
+          <div class="brand-icon" style="background:rgba(80,160,255,0.1);">🏗️</div>
+          <div class="brand-info">
+            <h3>Siroya Ventures</h3>
+            <div class="brand-handle">@siroyaventures</div>
+          </div>
+          <span class="category-pill" style="background:rgba(80,160,255,0.1);color:#50a0ff;">Real Estate</span>
+        </div>
+        <div class="brand-card-body">
+          <p class="brand-desc">
+            Real estate development firm requiring a strong digital footprint for project launches. Managed launch campaigns, virtual tour promotions, and investor-facing content that established credibility.
+          </p>
+          <div class="work-tags">
+            <span class="work-tag">Project Launches</span>
+            <span class="work-tag">Virtual Tours</span>
+            <span class="work-tag">Investor Content</span>
+            <span class="work-tag">Paid Ads Support</span>
+          </div>
+          <div class="brand-metrics">
+            <div class="metric">
+              <div class="metric-val" style="color:#50a0ff;">Launch</div>
+              <div class="metric-key">Campaigns</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#50a0ff;">+95%</div>
+              <div class="metric-key">Inquiry Growth</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#50a0ff;">2x</div>
+              <div class="metric-key">Engagement</div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/siroyaventures/" target="_blank" class="brand-link">View on Instagram →</a>
+        </div>
+      </div>
+
+      <!-- 10. THE COPPERSMITHS -->
+      <div class="brand-card" data-category="food">
+        <div class="brand-card-top">
+          <div class="brand-icon" style="background:rgba(200,120,60,0.12);">🍽️</div>
+          <div class="brand-info">
+            <h3>The Coppersmiths</h3>
+            <div class="brand-handle">@thecoppersmiths.in</div>
+          </div>
+          <span class="category-pill" style="background:rgba(200,120,60,0.1);color:#c8783c;">Restaurant</span>
+        </div>
+        <div class="brand-card-body">
+          <p class="brand-desc">
+            Heritage-inspired restaurant brand blending craft and cuisine. Built a storytelling-led content strategy highlighting culinary craftsmanship, chef profiles, and immersive dining experience content.
+          </p>
+          <div class="work-tags">
+            <span class="work-tag">Storytelling Content</span>
+            <span class="work-tag">Chef Spotlights</span>
+            <span class="work-tag">Experience-Led Reels</span>
+            <span class="work-tag">Event Coverage</span>
+          </div>
+          <div class="brand-metrics">
+            <div class="metric">
+              <div class="metric-val" style="color:#c8783c;">+70%</div>
+              <div class="metric-key">Reservation DMs</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#c8783c;">↑3x</div>
+              <div class="metric-key">Reel Views</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#c8783c;">Brand</div>
+              <div class="metric-key">Story Built</div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/thecoppersmiths.in/" target="_blank" class="brand-link">View on Instagram →</a>
+        </div>
+      </div>
+
+      <!-- 11. NIDA SHAIKH -->
+      <div class="brand-card" data-category="politics">
+        <div class="brand-card-top">
+          <div class="brand-icon" style="background:rgba(34,197,94,0.1);">🎙️</div>
+          <div class="brand-info">
+            <h3>Nida Shaikh</h3>
+            <div class="brand-handle">@nidashaikh.official</div>
+          </div>
+          <span class="category-pill" style="background:rgba(34,197,94,0.1);color:#22c55e;">Politics</span>
+        </div>
+        <div class="brand-card-body">
+          <p class="brand-desc">
+            Political public figure requiring a credible, impactful social presence. Built a content strategy around policy communication, grassroots engagement, and personal brand narrative — making complex issues accessible and shareable for a wide audience.
+          </p>
+          <div class="work-tags">
+            <span class="work-tag">Personal Branding</span>
+            <span class="work-tag">Policy Communication</span>
+            <span class="work-tag">Reels & Speeches</span>
+            <span class="work-tag">Audience Engagement</span>
+            <span class="work-tag">Crisis-Aware Messaging</span>
+          </div>
+          <div class="brand-metrics">
+            <div class="metric">
+              <div class="metric-val" style="color:#22c55e;">+150%</div>
+              <div class="metric-key">Follower Growth</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#22c55e;">↑4x</div>
+              <div class="metric-key">Post Reach</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#22c55e;">High</div>
+              <div class="metric-key">Share Rate</div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/nidashaikh.official/" target="_blank" class="brand-link">View on Instagram →</a>
+        </div>
+      </div>
+
+      <!-- 12. SHERRIN VARGHESE -->
+      <div class="brand-card" data-category="celebrity">
+        <div class="brand-card-top">
+          <div class="brand-icon" style="background:rgba(251,191,36,0.1);">🌟</div>
+          <div class="brand-info">
+            <h3>Sherrin Varghese</h3>
+            <div class="brand-handle">@sherrinvarghese</div>
+          </div>
+          <span class="category-pill" style="background:rgba(251,191,36,0.1);color:#fbbf24;">Celebrity</span>
+        </div>
+        <div class="brand-card-body">
+          <p class="brand-desc">
+            Celebrity personal brand management requiring a carefully curated mix of aspirational lifestyle, brand partnership content, and authentic fan connection. Managed the full content pipeline while protecting and elevating the public persona.
+          </p>
+          <div class="work-tags">
+            <span class="work-tag">Celebrity Management</span>
+            <span class="work-tag">Brand Partnerships</span>
+            <span class="work-tag">Lifestyle Content</span>
+            <span class="work-tag">Fan Engagement</span>
+            <span class="work-tag">PR-Aligned Posting</span>
+          </div>
+          <div class="brand-metrics">
+            <div class="metric">
+              <div class="metric-val" style="color:#fbbf24;">↑5x</div>
+              <div class="metric-key">Reel Views</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#fbbf24;">+200%</div>
+              <div class="metric-key">Engagement</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#fbbf24;">Brand</div>
+              <div class="metric-key">Deals Amplified</div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/sherrinvarghese/" target="_blank" class="brand-link">View on Instagram →</a>
+        </div>
+      </div>
+
+      <!-- 13. WORLD TOWERS CRICKET -->
+      <div class="brand-card" data-category="sports">
+        <div class="brand-card-top">
+          <div class="brand-icon" style="background:rgba(16,185,129,0.1);">🏏</div>
+          <div class="brand-info">
+            <h3>World Towers Cricket</h3>
+            <div class="brand-handle">@worldtowerscricket</div>
+          </div>
+          <span class="category-pill" style="background:rgba(16,185,129,0.1);color:#10b981;">Sports</span>
+        </div>
+        <div class="brand-card-body">
+          <p class="brand-desc">
+            Cricket sports brand requiring high-energy, match-day content and a strong team identity online. Designed all posts and stories using Canva — scorecards, match highlights, player spotlights, and tournament graphics — giving the brand a consistent, professional look on every gameday.
+          </p>
+          <div class="work-tags">
+            <span class="work-tag">Canva Design</span>
+            <span class="work-tag">Posts & Stories</span>
+            <span class="work-tag">Match Day Content</span>
+            <span class="work-tag">Player Spotlights</span>
+            <span class="work-tag">Tournament Graphics</span>
+            <span class="work-tag">Brand Identity</span>
+          </div>
+          <div class="brand-metrics">
+            <div class="metric">
+              <div class="metric-val" style="color:#10b981;">100%</div>
+              <div class="metric-key">Canva Designed</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#10b981;">↑3x</div>
+              <div class="metric-key">Story Views</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val" style="color:#10b981;">Pro</div>
+              <div class="metric-key">Visual Identity</div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/worldtowerscricket/" target="_blank" class="brand-link">View on Instagram →</a>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- FLOATING WHATSAPP BUTTON -->
-  <a href="https://wa.me/917977054003" target="_blank" class="fixed bottom-6 right-6 bg-green-500 p-4 rounded-full shadow-lg hover:scale-110 transition">
-    💬
-  </a>
+  <!-- TOOLS & SKILLS -->
+  <section style="padding:5rem 3rem;background:var(--black);border-top:1px solid rgba(240,237,232,0.06);">
+    <div style="max-width:1000px;margin:0 auto;text-align:center;">
+      <p class="section-label">My Toolkit</p>
+      <h2 class="section-title" style="margin-bottom:3rem;">Tools I Work With</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
+        <div class="tool-badge" style="background:rgba(255,101,41,0.1);border-color:rgba(255,101,41,0.25);color:#ff6529;"><span>🎨</span> Canva</div>
+        <div class="tool-badge" style="background:rgba(149,91,255,0.1);border-color:rgba(149,91,255,0.25);color:#9b5bff;"><span>🛍️</span> Shopify</div>
+        <div class="tool-badge" style="background:rgba(0,102,204,0.12);border-color:rgba(0,102,204,0.3);color:#5a9fd4;"><span>🛒</span> WooCommerce</div>
+        <div class="tool-badge" style="background:rgba(225,48,108,0.1);border-color:rgba(225,48,108,0.25);color:#e1306c;"><span>📸</span> Instagram</div>
+        <div class="tool-badge" style="background:rgba(24,119,242,0.1);border-color:rgba(24,119,242,0.25);color:#1877f2;"><span>📘</span> Facebook</div>
+        <div class="tool-badge" style="background:rgba(240,237,232,0.05);border-color:rgba(240,237,232,0.15);color:#f0ede8;"><span>𝕏</span> X / Twitter</div>
+        <div class="tool-badge" style="background:rgba(255,0,0,0.08);border-color:rgba(255,0,0,0.2);color:#ff4444;"><span>▶️</span> YouTube</div>
+        <div class="tool-badge" style="background:rgba(0,229,255,0.08);border-color:rgba(0,229,255,0.2);color:#00e5ff;"><span>📊</span> Meta Business Suite</div>
+        <div class="tool-badge" style="background:rgba(255,180,0,0.08);border-color:rgba(255,180,0,0.2);color:#ffb400;"><span>📅</span> Content Scheduling</div>
+        <div class="tool-badge" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:#34d399;"><span>📦</span> Inventory Management</div>
+      </div>
 
-  <footer class="py-6 text-center text-gray-500 text-sm bg-gray-900">
-    © 2026 Vishwas Landge. All rights reserved.
+      <!-- Canva + Shopify + WooCommerce deep-dive cards -->
+      <div style="margin-top:3rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;text-align:left;">
+        <div style="background:rgba(255,101,41,0.06);border:1px solid rgba(255,101,41,0.18);border-radius:12px;padding:1.8rem;">
+          <div style="font-size:2rem;margin-bottom:1rem;">🎨</div>
+          <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:0.6rem;color:#ff6529;">Canva Design</h3>
+          <p style="font-size:0.85rem;color:var(--muted);line-height:1.7;">I design all social posts, stories, carousels, and campaign graphics in Canva — maintaining brand kits, consistent templates, and professional visuals across every account I manage.</p>
+        </div>
+        <div style="background:rgba(149,91,255,0.06);border:1px solid rgba(149,91,255,0.18);border-radius:12px;padding:1.8rem;">
+          <div style="font-size:2rem;margin-bottom:1rem;">🛍️</div>
+          <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:0.6rem;color:#9b5bff;">Shopify</h3>
+          <p style="font-size:0.85rem;color:var(--muted);line-height:1.7;">From adding products and managing inventory to updating collections and tracking orders — I handle Shopify store operations so your e-commerce backend runs as well as your social front.</p>
+        </div>
+        <div style="background:rgba(0,102,204,0.06);border:1px solid rgba(0,102,204,0.2);border-radius:12px;padding:1.8rem;">
+          <div style="font-size:2rem;margin-bottom:1rem;">🛒</div>
+          <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:0.6rem;color:#5a9fd4;">WooCommerce</h3>
+          <p style="font-size:0.85rem;color:var(--muted);line-height:1.7;">Product listings, inventory updates, category management, and order tracking on WooCommerce — keeping your WordPress store organised and ready to convert.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="process-inner">
+      <p class="section-label">How I Work</p>
+      <h2 class="section-title">The Strategy Behind<br>Every Brand</h2>
+
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h3>Discovery & Brand Audit</h3>
+            <p>I start by deeply understanding your business, target audience, and competitors. Every strategy is built on real data — not templates. This phase includes a full audit of your existing social presence, tone, and content gaps.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h3>Strategy & Content Blueprint</h3>
+            <p>I develop a custom content strategy with content pillars, posting cadence, platform recommendations, and a monthly calendar. You'll know exactly what's being posted, why, and what business outcome it's driving.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h3>Create, Schedule & Publish</h3>
+            <p>Content is created — copy, direction, creative briefs — scheduled in advance and published at peak performance times. I handle everything from captions to hashtag strategy to reel structuring.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h3>Engage & Manage Community</h3>
+            <p>I monitor comments, respond to DMs, and keep your community active and warm. Engagement isn't optional — it's a growth lever I treat seriously on every account I manage.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">05</div>
+          <div class="step-content">
+            <h3>Analyze, Report & Optimize</h3>
+            <p>Monthly performance reports with clear metrics, honest insights, and actionable next steps. I adjust the strategy based on what data tells us — and I never stop iterating.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-orb"></div>
+    <div class="contact-inner">
+      <p class="section-label">Get In Touch</p>
+      <h2>Ready to <em>Scale</em><br>Your Brand?</h2>
+      <p>Whether you're starting from zero or looking to break through a plateau — let's build something that actually moves the needle.</p>
+      <div class="contact-btns">
+        <a href="mailto:landgevishwas10@gmail.com" class="btn-primary">📩 Email Me</a>
+        <a href="https://wa.me/917977054003" target="_blank" class="btn-wa">💬 WhatsApp Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Vishwas Landge. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="mailto:landgevishwas10@gmail.com">Email</a>
+    </div>
   </footer>
 
+  <!-- FLOATING WA -->
+  <a href="https://wa.me/917977054003" target="_blank" class="wa-float" title="Chat on WhatsApp">💬</a>
+
+  <script>
+    function filterCards(category, btn) {
+      // Update active tab
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Show/hide cards
+      document.querySelectorAll('.brand-card').forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // Fade in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.brand-card, .service-card, .process-step').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
